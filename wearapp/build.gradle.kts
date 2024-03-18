@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    namespace = "com.github.users"
+    namespace = "com.atif.wear"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.github.users"
+        applicationId = "com.atif.wear"
         minSdk = 26
         targetSdk = 34
         versionCode = 1
@@ -30,11 +30,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "11"
     }
     buildFeatures {
         compose = true
@@ -65,5 +65,5 @@ dependencies {
     debugImplementation(libs.compose.ui.tooling)
     debugImplementation(libs.ui.test.manifest)
     implementation("androidx.compose.material:material-icons-extended:1.6.3")
-    api("io.github.qdsfdhvh:image-loader:1.7.6")
+    implementation("io.coil-kt:coil-compose:2.6.0")
 }
