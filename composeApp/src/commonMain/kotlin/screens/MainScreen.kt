@@ -2,6 +2,7 @@ package screens
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -61,7 +62,7 @@ fun MainScreenUI() {
         }*/
 
     }
-    Box(modifier = Modifier.fillMaxSize()) {
+    Box(modifier = Modifier.fillMaxSize().background(Color(0xFF001f25))) {
         LazyColumn {
             items(urlList) { user ->
                 Card(
@@ -70,7 +71,7 @@ fun MainScreenUI() {
                     colors = CardDefaults.cardColors(
                         containerColor = Color(0xFF0a2b34)
                     ),
-
+                    onClick = {}
                     ) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Card(

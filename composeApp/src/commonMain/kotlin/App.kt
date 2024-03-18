@@ -39,7 +39,7 @@ fun App() {
             }
 
         }*/
-        Column(modifier = Modifier.fillMaxSize().background(Color(0xFF001f25))) {
+        Column(modifier = Modifier.fillMaxSize()) {
             if (getPlatform().name == "Desktop") {
                 LargeMainScreenUI()
             } else {

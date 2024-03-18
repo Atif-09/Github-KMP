@@ -1,4 +1,3 @@
-/*
 package colors
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
@@ -75,4 +74,4 @@ val Color.lightGreen: Color
 
 @get:Composable
 val Color.red: Color
-    get() = Color(0x99F44336)*/
+    get() = Color(0x99F44336)
