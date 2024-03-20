@@ -6,6 +6,7 @@ import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.request.get
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
+import model.SearchUserDataClass
 import model.UsersDataClass
 
 
@@ -30,6 +31,14 @@ class ApiClass {
 
         return response.body()
     }
+
+    suspend fun getUser(userName:String):SearchUserDataClass{
+        val response = client.get("https://api.github.com/users/$userName")
+        return response.body()
+
+    }
+
+   // users list based on search// https://api.github.com/search/users?q=seabdulbasit
 
 /*    suspend fun searchImage(url:String): ImageDataClass {
         val response = client.get(url)
