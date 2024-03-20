@@ -3,21 +3,15 @@ package com.atif.wear.presentation
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.Search
-import androidx.compose.material.icons.rounded.Person
+import androidx.compose.material.icons.rounded.Home
 import androidx.compose.material.icons.rounded.SelfImprovement
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -30,8 +24,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.compositeOver
-import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -40,8 +32,8 @@ import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import androidx.wear.compose.material.Card
-import androidx.wear.compose.material.CardDefaults
+import androidx.wear.compose.material.Button
+import androidx.wear.compose.material.ButtonDefaults
 import androidx.wear.compose.material.Chip
 import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.material.Icon
@@ -58,13 +50,12 @@ import androidx.wear.compose.material.rememberScalingLazyListState
 import androidx.wear.compose.material.scrollAway
 import api.ApiClass
 import coil.compose.AsyncImage
-import com.github.users.R
 import com.atif.wear.presentation.theme.GithubUsersTheme
-import com.seiko.imageloader.rememberImagePainter
 import kotlinx.coroutines.launch
 import model.UsersDataClass
+import model.listOfPredefinedUsers
 
-class MainActivity : ComponentActivity() {
+class MainActivityWear : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         installSplashScreen()
 
@@ -123,7 +114,23 @@ fun WearApp() {
 
                 ScalingLazyColumn(content = {
                     item {
-                        Row(horizontalArrangement = Arrangement.SpaceBetween) {
+
+                        Button(
+                            modifier = Modifier
+                                .size(ButtonDefaults.DefaultButtonSize)
+                                .align(Alignment.Center),
+                            onClick = { /* ... */ },
+                            colors = ButtonDefaults.buttonColors(
+                                backgroundColor = Color(0xFF004b71),
+                            )
+                        ) {
+                            Icon(
+                                imageVector = Icons.Rounded.Home,
+                                contentDescription = "triggers phone action",
+                                modifier = Modifier
+                            )
+                        }
+                        /*Row(horizontalArrangement = Arrangement.SpaceBetween) {
                             Card(
                                 onClick = { navigationItems = true },
                                 shape = RoundedCornerShape(100),
@@ -159,13 +166,14 @@ fun WearApp() {
                                     Icon(imageVector = Icons.Default.Search, contentDescription = null)
                                 }
                             }
-                        }
+                        }*/
 
                     }
 
 
                     if(navigationItems){
-                        items(urlList) { data ->
+                        val list = if (urlList.isEmpty()) listOfPredefinedUsers else urlList
+                        items(list) { data ->
                             Chip(
                                 modifier = Modifier.fillMaxWidth(),
                                 colors = ChipDefaults.chipColors(
@@ -180,7 +188,10 @@ fun WearApp() {
                                     )
                                 },
                                 icon = {
-                                    Box(modifier = Modifier.size(40.dp).clip(RoundedCornerShape(100)).border(1.dp, Color(0x9932CD32), RoundedCornerShape(100))) {
+                                    Box(modifier = Modifier
+                                        .size(40.dp)
+                                        .clip(RoundedCornerShape(100))
+                                        .border(1.dp, Color(0x9932CD32), RoundedCornerShape(100))) {
                                         AsyncImage(data.avatar_url, null, modifier = Modifier.fillMaxSize(), contentScale = ContentScale.Fit)
                                     }
 

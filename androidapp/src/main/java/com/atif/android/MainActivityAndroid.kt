@@ -24,19 +24,7 @@ class MainActivityAndroid : ComponentActivity() {
         super.onCreate(savedInstanceState)
         WindowCompat.setDecorFitsSystemWindows(window, false)
         setContent {
-            val view = LocalView.current
-            if (!view.isInEditMode) {
-                SideEffect {
-                    val window = (view.context as Activity).window
-                    window.statusBarColor = Color.Transparent.toArgb()
-                    window.navigationBarColor = Color.Transparent.toArgb()
-
-                }
-            }
             GithubUsersTheme {
-                Surface(modifier = Modifier.fillMaxSize()) {
-
-                }
                App()
             }
         }

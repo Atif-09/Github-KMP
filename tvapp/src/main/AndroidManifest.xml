@@ -17,7 +17,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GithubUsers">
         <activity
-            android:name=".MainActivity"
+            android:name=".MainActivityTv"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

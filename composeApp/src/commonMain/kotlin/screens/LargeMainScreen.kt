@@ -2,6 +2,7 @@ package screens
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -14,6 +15,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -58,6 +60,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.semantics.isTraversalGroup
 import androidx.compose.ui.semantics.semantics
@@ -68,6 +71,7 @@ import api.ApiClass
 import com.seiko.imageloader.rememberImagePainter
 import kotlinx.coroutines.launch
 import model.UsersDataClass
+import model.listOfPredefinedUsers
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -76,14 +80,66 @@ fun LargeMainScreenUI() {
     var selected by remember { mutableStateOf(true) }
 
     val scope = rememberCoroutineScope()
-    /*scope.launch {
-        urlList = ApiClass().githubUsers()
-    }*/
+    /*    scope.launch {
+            urlList = ApiClass().githubUsers()
+        }*/
 
-    Row(modifier = Modifier.fillMaxSize()) {
-        PermanentNavigationDrawer(modifier = Modifier.fillMaxWidth(0.4f),
+    Row(modifier = Modifier.fillMaxSize().background(Color(0xFF001f25))) {
+        ModalNavigationDrawer(drawerState = rememberDrawerState(initialValue = DrawerValue.Open),
+            modifier = Modifier.width(300.dp).background(Color(0xFF0a2b34)).clip(
+                RoundedCornerShape(topEnd = 15.dp, bottomEnd = 15.dp)
+            ),
             drawerContent = {
-                ModalDrawerSheet(
+                Column(
+                    verticalArrangement = Arrangement.spacedBy(12.dp),
+                    modifier = Modifier.background(Color(0xFF001f25)).clip(
+                        RoundedCornerShape(topEnd = 15.dp, bottomEnd = 15.dp)
+                    )
+                ) {
+                    Spacer(Modifier.height(12.dp))
+                    NavigationDrawerItem(
+                        selected = selected,
+                        onClick = { selected = true },
+                        icon = {
+                            Icon(
+                                imageVector = Icons.Rounded.Home,
+                                contentDescription = null
+                            )
+                        },
+                        label = { Text("Home") },
+                        colors = NavigationDrawerItemDefaults.colors(
+                            selectedContainerColor = Color(0xFF004b71),
+                            unselectedContainerColor = Color(0x33e8def8),
+                            unselectedTextColor = Color.White,
+                            unselectedIconColor = Color.White,
+                            selectedIconColor = Color.White,
+                            selectedTextColor = Color.White
+
+                        )
+                    )
+
+                    NavigationDrawerItem(
+                        selected = !selected,
+                        onClick = { selected = false },
+                        icon = {
+                            Icon(
+                                imageVector = Icons.Rounded.Search,
+                                contentDescription = null
+                            )
+                        },
+                        label = { Text("Search") },
+                        colors = NavigationDrawerItemDefaults.colors(
+                            selectedContainerColor = Color(0xFF004b71),
+                            unselectedContainerColor = Color(0x33e8def8),
+                            unselectedTextColor = Color.White,
+                            unselectedIconColor = Color.White,
+                            selectedIconColor = Color.White,
+                            selectedTextColor = Color.White
+                        )
+
+                    )
+                }
+                /*ModalDrawerSheet(
                     modifier = Modifier,
                     drawerShape = RoundedCornerShape(topEnd = 12.dp, bottomEnd = 12.dp),
                     drawerContainerColor = Color(0xFF0a2b34),
@@ -124,7 +180,7 @@ fun LargeMainScreenUI() {
                         )
                     },
                     drawerTonalElevation = 9.dp
-                )
+                )*/
                 /*            NavigationDrawerItem(
                                 label = { Text("Home") },
                                 icon = { Icon(Icons.Rounded.Home, null) },
@@ -157,13 +213,16 @@ fun LargeMainScreenUI() {
                             )*/
 
 
-            }, content = {
+            },
+            content = {
+
 
             })
 
+        val list = urlList.ifEmpty { listOfPredefinedUsers }
         if (selected) {
-            LazyVerticalGrid(columns = GridCells.Fixed(3), modifier = Modifier.fillMaxWidth(1f)) {
-                items(urlList) { user ->
+            LazyVerticalGrid(columns = GridCells.Adaptive(300.dp)) {
+                items(list) { user ->
                     Card(
                         modifier = Modifier.fillMaxWidth().padding(9.dp),
                         shape = RoundedCornerShape(9.dp),
@@ -214,9 +273,8 @@ fun LargeMainScreenUI() {
 
             Box(Modifier.fillMaxSize().semantics { isTraversalGroup = true }) {
                 DockedSearchBar(
-                    modifier = Modifier
+                    modifier = Modifier.fillMaxWidth(0.5f).padding(12.dp)
                         .align(Alignment.TopCenter)
-                        .padding(top = 8.dp)
                         .semantics { traversalIndex = -1f },
                     query = text,
                     onQueryChange = { text = it },
@@ -261,40 +319,24 @@ fun LargeMainScreenUI() {
                     ),
                 ) {
                     repeat(4) { idx ->
-                        val resultText = "Suggestion $idx"
-                        Card(
-                            modifier = Modifier.fillMaxWidth().padding(9.dp),
-                            shape = RoundedCornerShape(9.dp),
-                            colors = CardDefaults.cardColors(
-                                containerColor = Color(0xFF004b71)
-                            ),
-                            onClick = {
-                                text = "Abdul"
-                                active = false
-                            },
-
-                            ) {
-                            Row(verticalAlignment = Alignment.CenterVertically) {
 
 
-                                Text(
-                                    "Abdul Basit",
-                                    fontWeight = FontWeight.Bold,
-                                    color = Color(0xFF6a9fac)
-                                )
+                        Text(
+                            "Abdul Basit",
+                            fontWeight = FontWeight.Bold,
+                            color = Color(0xFF6a9fac),
+                            modifier = Modifier.padding(start = 36.dp)
+                        )
 
 
-                            }
 
-                        }
-                    }
                 }
-
             }
+
         }
-
-
     }
+
+}
 
 
 }
