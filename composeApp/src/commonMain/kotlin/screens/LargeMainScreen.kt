@@ -76,13 +76,8 @@ import model.listOfPredefinedUsers
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LargeMainScreenUI() {
-    var urlList by remember { mutableStateOf<List<UsersDataClass>>(emptyList()) }
-    var selected by remember { mutableStateOf(true) }
-
-    val scope = rememberCoroutineScope()
-    /*    scope.launch {
-            urlList = ApiClass().githubUsers()
-        }*/
+    var homeSelected by remember { mutableStateOf(true) }
+    var searchSelected by remember { mutableStateOf(false) }
 
     Row(modifier = Modifier.fillMaxSize().background(Color(0xFF001f25))) {
         ModalNavigationDrawer(drawerState = rememberDrawerState(initialValue = DrawerValue.Open),
@@ -98,8 +93,11 @@ fun LargeMainScreenUI() {
                 ) {
                     Spacer(Modifier.height(12.dp))
                     NavigationDrawerItem(
-                        selected = selected,
-                        onClick = { selected = true },
+                        selected = homeSelected,
+                        onClick = {
+                            homeSelected = true
+                            searchSelected = false
+                        },
                         icon = {
                             Icon(
                                 imageVector = Icons.Rounded.Home,
@@ -119,8 +117,11 @@ fun LargeMainScreenUI() {
                     )
 
                     NavigationDrawerItem(
-                        selected = !selected,
-                        onClick = { selected = false },
+                        selected = searchSelected,
+                        onClick = {
+                            homeSelected = false
+                            searchSelected = true
+                        },
                         icon = {
                             Icon(
                                 imageVector = Icons.Rounded.Search,
@@ -219,124 +220,15 @@ fun LargeMainScreenUI() {
 
             })
 
-        val list = urlList.ifEmpty { listOfPredefinedUsers }
-        if (selected) {
-            LazyVerticalGrid(columns = GridCells.Adaptive(300.dp)) {
-                items(list) { user ->
-                    Card(
-                        modifier = Modifier.fillMaxWidth().padding(9.dp),
-                        shape = RoundedCornerShape(9.dp),
-                        colors = CardDefaults.cardColors(
-                            containerColor = Color(0xFF0a2b34)
-                        ),
-
-                        ) {
-                        Row(verticalAlignment = Alignment.CenterVertically) {
-                            Card(
-                                modifier = Modifier.size(81.dp).padding(12.dp),
-                                shape = RoundedCornerShape(100),
-                                border = BorderStroke(1.dp, Color(0xFF3d7e31))
-                            ) {
-
-                                /*Image(
-                                    painterResource(Res.drawable.compose_multiplatform),
-                                    null,
-                                    modifier = Modifier.fillMaxSize()
-                                )*/
-                                Image(
-                                    rememberImagePainter(user.avatar_url),
-                                    null,
-                                    modifier = Modifier.fillMaxSize()
-                                )
-                            }
-
-                            Column {
-                                Text(
-                                    user.login.uppercase(),
-                                    fontWeight = FontWeight.Bold,
-                                    color = Color(0xFF6a9fac)
-                                )
-                                Text(
-                                    "ID = ${user.id}",
-                                    color = Color(0xFF2c545e),
-                                    modifier = Modifier.padding(bottom = 9.dp)
-                                )
-                            }
-                        }
-
-                    }
-                }
-            }
-        } else {
-            var text by rememberSaveable { mutableStateOf("") }
-            var active by rememberSaveable { mutableStateOf(false) }
-
-            Box(Modifier.fillMaxSize().semantics { isTraversalGroup = true }) {
-                DockedSearchBar(
-                    modifier = Modifier.fillMaxWidth(0.5f).padding(12.dp)
-                        .align(Alignment.TopCenter)
-                        .semantics { traversalIndex = -1f },
-                    query = text,
-                    onQueryChange = { text = it },
-                    onSearch = { active = false },
-                    active = active,
-                    onActiveChange = { active = it },
-                    placeholder = { Text("Search a user", color = Color.White) },
-                    leadingIcon = {
-                        Icon(
-                            Icons.Default.Search,
-                            contentDescription = null,
-                            tint = Color.White
-                        )
-                    },
-                    trailingIcon = {
-                        if (active) {
-                            Icon(Icons.Default.Close,
-                                contentDescription = null,
-                                tint = Color.White,
-                                modifier = Modifier.clickable {
-                                    if (text.isNotEmpty()) {
-                                        text = ""
-                                    } else {
-                                        active = false
-                                    }
-
-                                })
-                        }
-                    },
-                    colors = SearchBarDefaults.colors(
-                        containerColor = Color(0xFF0a2b34),
-                        inputFieldColors = TextFieldDefaults.colors(
-                            cursorColor = Color.White,
-                            unfocusedTextColor = Color.White,
-                            disabledLeadingIconColor = Color.White,
-                            disabledTrailingIconColor = Color.White,
-                            focusedLeadingIconColor = Color.White,
-                            focusedTrailingIconColor = Color.White,
-                            disabledTextColor = Color.White,
-                            focusedTextColor = Color.White
-                        )
-                    ),
-                ) {
-                    repeat(4) { idx ->
-
-
-                        Text(
-                            "Abdul Basit",
-                            fontWeight = FontWeight.Bold,
-                            color = Color(0xFF6a9fac),
-                            modifier = Modifier.padding(start = 36.dp)
-                        )
-
-
-
-                }
-            }
-
+        if (homeSelected) {
+            LargeDevicesHomeScreenUI()
         }
-    }
+        if (searchSelected) {
+            LargeDeviceSearchScreenUI()
+        }
 
-}
+
+    }
 
 
 }
