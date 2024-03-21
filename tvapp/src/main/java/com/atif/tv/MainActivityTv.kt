@@ -9,34 +9,23 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Home
-import androidx.compose.material.icons.rounded.Person
+import androidx.compose.material.icons.rounded.Search
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.tv.foundation.lazy.grid.TvGridCells
-import androidx.tv.foundation.lazy.grid.TvLazyVerticalGrid
-import androidx.tv.material3.Card
-import androidx.tv.material3.CardDefaults
 import androidx.tv.material3.DrawerValue
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.Icon
@@ -46,10 +35,9 @@ import androidx.tv.material3.NavigationDrawerItemDefaults
 import androidx.tv.material3.Surface
 import androidx.tv.material3.Text
 import androidx.tv.material3.rememberDrawerState
-import api.ApiClass
+import com.atif.tv.screens.TvHomeScreenUI
+import com.atif.tv.screens.TvSearchScreenUI
 import com.atif.tv.theme.GithubUsersTheme
-import kotlinx.coroutines.launch
-import model.UsersDataClass
 
 class MainActivityTv : ComponentActivity() {
     @OptIn(ExperimentalTvMaterial3Api::class)
@@ -72,39 +60,52 @@ class MainActivityTv : ComponentActivity() {
 @Composable
 fun MainScreenUI() {
 
-    var urlList by remember { mutableStateOf<List<UsersDataClass>>(emptyList()) }
+    /*   var urlList by remember { mutableStateOf<List<UsersDataClass>>(emptyList()) }
 
-    val scope = rememberCoroutineScope()
-    LaunchedEffect(Unit) {
-        scope.launch {
-            urlList = ApiClass().githubUsers()
-            /*println("Size of list ${data.size}")
+       val scope = rememberCoroutineScope()
+       LaunchedEffect(Unit) {
+           scope.launch {
+               urlList = ApiClass().githubUsers()
+               *//*println("Size of list ${data.size}")
             for (i in data) {
                 println("User Github Login ${i.login}")
 
-            }*/
+            }*//*
 
         }
-    }
+    }*/
+    var homeSelected by remember { mutableStateOf(true) }
+    var searchSelected by remember { mutableStateOf(false) }
 
-    Row(modifier = Modifier
-        .fillMaxSize()
-        .background(Color(0xFF001f25))) {
+    Row(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color(0xFF001f25))
+    )
+    {
 
-        NavigationDrawer(drawerState = rememberDrawerState(initialValue = DrawerValue.Open), modifier = Modifier.background(Color(0xFF0a2b34)).clip(
-            RoundedCornerShape(topEnd = 15.dp, bottomEnd = 15.dp)
-        ),
+        NavigationDrawer(drawerState = rememberDrawerState(initialValue = DrawerValue.Open),
+            modifier = Modifier
+                .background(Color(0xFF0a2b34))
+                .clip(
+                    RoundedCornerShape(topEnd = 15.dp, bottomEnd = 15.dp)
+                ),
             drawerContent = {
                 Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
-                    var selected by  remember{ mutableStateOf(true) }
+
                     Spacer(Modifier.height(12.dp))
                     NavigationDrawerItem(
-                        selected = selected,
-                        onClick = { selected = true },
-                        leadingContent = { Icon(
-                            imageVector = Icons.Rounded.Home,
-                            contentDescription = null
-                        ) },
+                        selected = homeSelected,
+                        onClick = {
+                            homeSelected = true
+                            searchSelected = false
+                        },
+                        leadingContent = {
+                            Icon(
+                                imageVector = Icons.Rounded.Home,
+                                contentDescription = null
+                            )
+                        },
                         colors = NavigationDrawerItemDefaults.colors(
                             contentColor = Color.White,
                             inactiveContentColor = Color.White,
@@ -115,18 +116,23 @@ fun MainScreenUI() {
                             disabledContainerColor = Color(0x33e8def8),
                             disabledContentColor = Color.White
                         )
-                        ) {
+                    ) {
                         Text(text = "Home")
 
                     }
 
                     NavigationDrawerItem(
-                        selected = !selected,
-                        onClick = { selected = false },
-                        leadingContent = { Icon(
-                            imageVector = Icons.Rounded.Home,
-                            contentDescription = null
-                        ) },
+                        selected = searchSelected,
+                        onClick = {
+                            searchSelected = true
+                            homeSelected = false
+                        },
+                        leadingContent = {
+                            Icon(
+                                imageVector = Icons.Rounded.Search,
+                                contentDescription = null
+                            )
+                        },
                         colors = NavigationDrawerItemDefaults.colors(
                             contentColor = Color.White,
                             inactiveContentColor = Color.White,
@@ -138,7 +144,7 @@ fun MainScreenUI() {
                             disabledContentColor = Color.White
                         )
 
-                        ) {
+                    ) {
                         Text(text = "Search")
 
                     }
@@ -146,107 +152,63 @@ fun MainScreenUI() {
 
 
             }
-        ){
+        ) {
 
 
         }
 
-        TvLazyVerticalGrid(columns = TvGridCells.Adaptive(300.dp), content = {
-            items(12) { users ->
-                Card(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(9.dp),
-                    shape = CardDefaults.shape(RoundedCornerShape(12.dp)),
-                    colors = CardDefaults.colors(),
-                    content = {
-                        Row(verticalAlignment = Alignment.CenterVertically) {
-                            Card(
-                                modifier = Modifier
-                                    .size(81.dp)
-                                    .padding(12.dp),
-                                shape = CardDefaults.shape(RoundedCornerShape(100)),
-                                border = CardDefaults.border(),
-                                onClick = {}
-                            ) {
-                                Icon(
-                                    Icons.Rounded.Person
-                                    ,
-                                    null,
-                                    modifier = Modifier.fillMaxSize()
-                                )
-                                /*AsyncImage(
-                                    model = users.avatar_url,
-                                    contentDescription = null,
-                                    modifier = Modifier.fillMaxSize()
-                                )*/
-                            }
-
-                            Column {
-                                Text(
-                                    "Abdul",
-                                    fontWeight = FontWeight.Bold,
-                                    color = Color(0xFF6a9fac)
-                                )
-                                Text(
-                                    "ID ",
-                                    color = Color(0xFF2c545e),
-                                    modifier = Modifier.padding(bottom = 9.dp)
-                                )
-                            }
-                        }
-                    },
-                    onClick = {}
-
-                )
-            }
-        })
+        if (homeSelected) {
+            TvHomeScreenUI()
+        }
+        if (searchSelected) {
+            TvSearchScreenUI()
+        }
         /*NavigationBar(modifier = Modifier
-            .align(Alignment.BottomCenter)
-            .clip(RoundedCornerShape(topStart = 12.dp, topEnd = 12.dp)),
-            tonalElevation = 9.dp,
-            containerColor = Color(0xFF0a2b34),
-            content = {
-                NavigationBarItem(
-                    selected = selected,
-                    onClick = { selected = true },
-                    icon = { Icon(Icons.Default.Home, null) },
-                    modifier = Modifier,
-                    label = { Text("Home") },
-                    alwaysShowLabel = true,
-                    colors = NavigationBarItemDefaults.colors(
+     .align(Alignment.BottomCenter)
+     .clip(RoundedCornerShape(topStart = 12.dp, topEnd = 12.dp)),
+     tonalElevation = 9.dp,
+     containerColor = Color(0xFF0a2b34),
+     content = {
+         NavigationBarItem(
+             selected = selected,
+             onClick = { selected = true },
+             icon = { Icon(Icons.Default.Home, null) },
+             modifier = Modifier,
+             label = { Text("Home") },
+             alwaysShowLabel = true,
+             colors = NavigationBarItemDefaults.colors(
 
-                        indicatorColor = if (selected) Color(0xFF004b71) else Color.Transparent,
-                        disabledTextColor = Color.White,
-                        disabledIconColor = Color.White,
-                        selectedIconColor = Color.White,
-                        unselectedIconColor = Color.White,
-                        unselectedTextColor = Color.White,
-                        selectedTextColor = Color.White
-                    )
-                )
+                 indicatorColor = if (selected) Color(0xFF004b71) else Color.Transparent,
+                 disabledTextColor = Color.White,
+                 disabledIconColor = Color.White,
+                 selectedIconColor = Color.White,
+                 unselectedIconColor = Color.White,
+                 unselectedTextColor = Color.White,
+                 selectedTextColor = Color.White
+             )
+         )
 
-                NavigationBarItem(
-                    selected = !selected,
-                    onClick = { selected = false },
-                    icon = { Icon(Icons.Default.Search, null) },
-                    modifier = Modifier,
-                    label = { Text("Search") },
-                    alwaysShowLabel = true,
-                    colors = NavigationBarItemDefaults.colors(
-                        indicatorColor = if (!selected) Color(0xFF004b71) else Color.Transparent,
-                        disabledTextColor = Color.White,
-                        disabledIconColor = Color.White,
-                        selectedIconColor = Color.White,
-                        unselectedIconColor = Color.White,
-                        unselectedTextColor = Color.White,
-                        selectedTextColor = Color.White
+         NavigationBarItem(
+             selected = !selected,
+             onClick = { selected = false },
+             icon = { Icon(Icons.Default.Search, null) },
+             modifier = Modifier,
+             label = { Text("Search") },
+             alwaysShowLabel = true,
+             colors = NavigationBarItemDefaults.colors(
+                 indicatorColor = if (!selected) Color(0xFF004b71) else Color.Transparent,
+                 disabledTextColor = Color.White,
+                 disabledIconColor = Color.White,
+                 selectedIconColor = Color.White,
+                 unselectedIconColor = Color.White,
+                 unselectedTextColor = Color.White,
+                 selectedTextColor = Color.White
 
-                    )
+             )
 
-                )
-            }
-        )*/
+         )
+     }
+ )*/
     }
 
 
