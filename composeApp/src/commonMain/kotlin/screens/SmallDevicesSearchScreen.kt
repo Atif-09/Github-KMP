@@ -1,7 +1,6 @@
 package screens
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -11,17 +10,15 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.DockedSearchBar
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.SearchBar
-import androidx.compose.material3.SearchBarDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
@@ -36,11 +33,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.semantics.isTraversalGroup
 import androidx.compose.ui.semantics.semantics
-import androidx.compose.ui.semantics.traversalIndex
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import api.ApiClass
@@ -48,13 +47,13 @@ import com.seiko.imageloader.rememberImagePainter
 import kotlinx.coroutines.launch
 import model.SearchUserDataClass
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SmallDeviceSearchScreenUI() {
     var text by rememberSaveable { mutableStateOf("") }
-    var active by rememberSaveable { mutableStateOf(false) }
     var user by remember { mutableStateOf<SearchUserDataClass?>(null) }
     val scope = rememberCoroutineScope()
+    val keyboardController = LocalSoftwareKeyboardController.current
+
 
 
     Column(Modifier.fillMaxSize().semantics { isTraversalGroup = true }) {
@@ -66,9 +65,11 @@ fun SmallDeviceSearchScreenUI() {
             placeholder = { Text("Search a user", color = Color.White) },
             leadingIcon = {
                 IconButton(onClick = {
+                    user = null
                     scope.launch {
                         user = ApiClass().getUser(text)
                     }
+                    keyboardController!!.hide()
                 }) {
                     Icon(
                         Icons.Default.Search,
@@ -111,7 +112,20 @@ fun SmallDeviceSearchScreenUI() {
                 focusedIndicatorColor = Color.Transparent
 
             ),
-            shape = RoundedCornerShape(50)
+            shape = RoundedCornerShape(50),
+            keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Sentences,
+                autoCorrect = true, imeAction = ImeAction.Search
+                ),
+            keyboardActions = KeyboardActions(
+                onSearch = {
+                    user = null
+                    scope.launch {
+                        user = ApiClass().getUser(text)
+
+                    }
+                    keyboardController!!.hide()
+                }
+            )
         )
         user?.let {
             Box(modifier = Modifier.fillMaxSize().padding(top = 12.dp)) {
@@ -296,7 +310,7 @@ fun SmallDeviceSearchScreenUI() {
                     shape = RoundedCornerShape(100)
                 ) {
                     Image(
-                        rememberImagePainter("https://avatars.githubusercontent.com/u/33172684?v=4"),
+                        rememberImagePainter(it.avatar_url),
                         null,
                         contentScale = ContentScale.Crop
                     )
