@@ -8,7 +8,7 @@ data class SearchUserDataClass(
     @SerialName("avatar_url")
     val avatar_url: String,
     @SerialName("bio")
-    val bio: String? = null,
+    var bio: String? = null,
     @SerialName("blog")
     val blog: String,
     @SerialName("company")
@@ -32,7 +32,7 @@ data class SearchUserDataClass(
     @SerialName("gravatar_id")
     val gravatar_id: String,
     @SerialName("hireable")
-    val hireable: String? = null,
+    var hireable: Boolean? = null,
     @SerialName("html_url")
     val html_url: String,
     @SerialName("id")
