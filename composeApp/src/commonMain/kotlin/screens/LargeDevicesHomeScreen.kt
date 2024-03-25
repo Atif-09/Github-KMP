@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.lazy.grid.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -43,7 +44,9 @@ fun LargeDevicesHomeScreenUI(){
 
     val list = urlList.ifEmpty { listOfPredefinedUsers }
         LazyVerticalGrid(columns = GridCells.Adaptive(300.dp)) {
-            items(list) { user ->
+            itemsIndexed(list) { index, user ->
+
+                val imageBorderColor = if (index % 3 ==0) Color(0x99F44336) else Color(0xFF3d7e31)
                 Card(
                     modifier = Modifier.fillMaxWidth().padding(9.dp),
                     shape = RoundedCornerShape(9.dp),
@@ -56,7 +59,7 @@ fun LargeDevicesHomeScreenUI(){
                         Card(
                             modifier = Modifier.size(81.dp).padding(12.dp),
                             shape = RoundedCornerShape(100),
-                            border = BorderStroke(1.dp, Color(0xFF3d7e31))
+                            border = BorderStroke(1.dp, imageBorderColor)
                         ) {
 
                             /*Image(
