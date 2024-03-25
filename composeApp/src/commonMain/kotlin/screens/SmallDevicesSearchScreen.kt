@@ -137,169 +137,195 @@ fun SmallDeviceSearchScreenUI() {
                         containerColor = Color(0xFF0d2f3a)
                     )
                 ) {
-                    Column(
-                        modifier = Modifier.fillMaxWidth().padding(top = 72.dp),
+                    Column(modifier = Modifier.fillMaxWidth(),
                         verticalArrangement = Arrangement.spacedBy(12.dp),
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
                         Row(
+                            modifier = Modifier.padding(top = 72.dp),
+
+                            ) {
+                            Column(
+                                modifier = Modifier.padding(horizontal = 18.dp),
+                                verticalArrangement = Arrangement.spacedBy(18.dp) // Aligns children to start and end
+                            ) {
+                                Text(
+                                    "Name:",
+                                    modifier = Modifier,
+                                    fontSize = 16.sp,
+                                    lineHeight = 24.sp,
+                                    letterSpacing = 0.5.sp,
+                                    color = Color(0xFF8ecede)
+                                )
+                                Text(
+                                    "Repos:",
+                                    modifier = Modifier,
+                                    fontSize = 16.sp,
+                                    lineHeight = 24.sp,
+                                    letterSpacing = 0.5.sp,
+                                    color = Color(0xFF8ecede)
+                                )
+
+                                Text(
+                                    "Gists:",
+                                    modifier = Modifier,
+                                    fontSize = 16.sp,
+                                    lineHeight = 24.sp,
+                                    letterSpacing = 0.5.sp,
+                                    color = Color(0xFF8ecede)
+                                )
+
+                                Text(
+                                    "Followers:",
+                                    modifier = Modifier,
+                                    fontSize = 16.sp,
+                                    lineHeight = 24.sp,
+                                    letterSpacing = 0.5.sp,
+                                    color = Color(0xFF8ecede)
+                                )
+
+                                Text(
+                                    "Following:",
+                                    modifier = Modifier,
+                                    fontSize = 16.sp,
+                                    lineHeight = 24.sp,
+                                    letterSpacing = 0.5.sp,
+                                    color = Color(0xFF8ecede)
+                                )
+
+                                Text(
+                                    "Created At:",
+                                    modifier = Modifier,
+                                    fontSize = 16.sp,
+                                    lineHeight = 24.sp,
+                                    letterSpacing = 0.5.sp,
+                                    color = Color(0xFF8ecede)
+                                )
+
+                                Text(
+                                    "Updated At:",
+                                    modifier = Modifier,
+                                    fontSize = 16.sp,
+                                    lineHeight = 24.sp,
+                                    letterSpacing = 0.5.sp,
+                                    color = Color(0xFF8ecede)
+                                )
+
+
+                            }
+
+                            Column(
+                                modifier = Modifier.padding(horizontal = 18.dp),
+                                verticalArrangement = Arrangement.spacedBy(18.dp) // Aligns children to start and end
+                            ) {
+                                Text(
+                                    it.name,
+                                    fontFamily = FontFamily.Default,
+                                    fontWeight = FontWeight.Normal,
+                                    fontSize = 16.sp,
+                                    lineHeight = 24.sp,
+                                    letterSpacing = 0.5.sp,
+                                    color = Color(0xFF8ecede)
+                                )
+
+                                Text(
+                                    it.public_repos.toString(),
+                                    fontFamily = FontFamily.Default,
+                                    fontWeight = FontWeight.Normal,
+                                    fontSize = 16.sp,
+                                    lineHeight = 24.sp,
+                                    letterSpacing = 0.5.sp,
+                                    color = Color(0xFF8ecede)
+                                )
+                                Text(
+                                    it.public_gists.toString(),
+                                    fontFamily = FontFamily.Default,
+                                    fontWeight = FontWeight.Normal,
+                                    fontSize = 16.sp,
+                                    lineHeight = 24.sp,
+                                    letterSpacing = 0.5.sp,
+                                    color = Color(0xFF8ecede)
+                                )
+
+                                Text(
+                                    it.followers.toString(),
+                                    fontFamily = FontFamily.Default,
+                                    fontWeight = FontWeight.Normal,
+                                    fontSize = 16.sp,
+                                    lineHeight = 24.sp,
+                                    letterSpacing = 0.5.sp,
+                                    color = Color(0xFF8ecede)
+                                )
+
+                                Text(
+                                    it.following.toString(),
+                                    fontFamily = FontFamily.Default,
+                                    fontWeight = FontWeight.Normal,
+                                    fontSize = 16.sp,
+                                    lineHeight = 24.sp,
+                                    letterSpacing = 0.5.sp,
+                                    color = Color(0xFF8ecede)
+                                )
+
+                                Text(
+                                    it.created_at.substring(0, 10),
+                                    fontFamily = FontFamily.Default,
+                                    fontWeight = FontWeight.Normal,
+                                    fontSize = 16.sp,
+                                    lineHeight = 24.sp,
+                                    letterSpacing = 0.5.sp,
+                                    color = Color(0xFF8ecede)
+                                )
+
+                                Text(
+                                    it.updated_at.substring(0, 10),
+                                    fontFamily = FontFamily.Default,
+                                    fontWeight = FontWeight.Normal,
+                                    fontSize = 16.sp,
+                                    lineHeight = 24.sp,
+                                    letterSpacing = 0.5.sp,
+                                    color = Color(0xFF8ecede)
+                                )
+                            }
+
+                            /*                        Row(
                             modifier = Modifier.padding(horizontal = 18.dp),
                             horizontalArrangement = Arrangement.spacedBy(18.dp) // Aligns children to start and end
                         ) {
-                            Text(
-                                "Name",
-                                modifier = Modifier,
-                                fontSize = 16.sp,
-                                lineHeight = 24.sp,
-                                letterSpacing = 0.5.sp,
-                                color = Color(0xFF8ecede)
-                            )
-                            Text(
-                                it.name,
-                                fontFamily = FontFamily.Default,
-                                fontWeight = FontWeight.Normal,
-                                fontSize = 16.sp,
-                                lineHeight = 24.sp,
-                                letterSpacing = 0.5.sp,
-                                color = Color(0xFF8ecede)
-                            )
+
+
+                        }
+                        Row(
+                            modifier = Modifier.padding(horizontal = 18.dp),
+                            horizontalArrangement = Arrangement.spacedBy(18.dp) // Aligns children to start and end
+                        ) {
+
+
+                        }
+                        Row(
+                            modifier = Modifier.padding(horizontal = 18.dp),
+                            horizontalArrangement = Arrangement.spacedBy(18.dp) // Aligns children to start and end
+                        ) {
+
+
                         }
 
                         Row(
                             modifier = Modifier.padding(horizontal = 18.dp),
                             horizontalArrangement = Arrangement.spacedBy(18.dp) // Aligns children to start and end
                         ) {
-                            Text(
-                                "Repos",
-                                modifier = Modifier,
-                                fontSize = 16.sp,
-                                lineHeight = 24.sp,
-                                letterSpacing = 0.5.sp,
-                                color = Color(0xFF8ecede)
-                            )
-                            Text(
-                                it.public_repos.toString(),
-                                fontFamily = FontFamily.Default,
-                                fontWeight = FontWeight.Normal,
-                                fontSize = 16.sp,
-                                lineHeight = 24.sp,
-                                letterSpacing = 0.5.sp,
-                                color = Color(0xFF8ecede)
-                            )
+
+
                         }
 
                         Row(
                             modifier = Modifier.padding(horizontal = 18.dp),
                             horizontalArrangement = Arrangement.spacedBy(18.dp) // Aligns children to start and end
                         ) {
-                            Text(
-                                "Gists",
-                                modifier = Modifier,
-                                fontSize = 16.sp,
-                                lineHeight = 24.sp,
-                                letterSpacing = 0.5.sp,
-                                color = Color(0xFF8ecede)
-                            )
-                            Text(
-                                it.public_gists.toString(),
-                                fontFamily = FontFamily.Default,
-                                fontWeight = FontWeight.Normal,
-                                fontSize = 16.sp,
-                                lineHeight = 24.sp,
-                                letterSpacing = 0.5.sp,
-                                color = Color(0xFF8ecede)
-                            )
-                        }
-                        Row(
-                            modifier = Modifier.padding(horizontal = 18.dp),
-                            horizontalArrangement = Arrangement.spacedBy(18.dp) // Aligns children to start and end
-                        ) {
-                            Text(
-                                "Followers",
-                                modifier = Modifier,
-                                fontSize = 16.sp,
-                                lineHeight = 24.sp,
-                                letterSpacing = 0.5.sp,
-                                color = Color(0xFF8ecede)
-                            )
-                            Text(
-                                it.followers.toString(),
-                                fontFamily = FontFamily.Default,
-                                fontWeight = FontWeight.Normal,
-                                fontSize = 16.sp,
-                                lineHeight = 24.sp,
-                                letterSpacing = 0.5.sp,
-                                color = Color(0xFF8ecede)
-                            )
-                        }
-                        Row(
-                            modifier = Modifier.padding(horizontal = 18.dp),
-                            horizontalArrangement = Arrangement.spacedBy(18.dp) // Aligns children to start and end
-                        ) {
-                            Text(
-                                "Following",
-                                modifier = Modifier,
-                                fontSize = 16.sp,
-                                lineHeight = 24.sp,
-                                letterSpacing = 0.5.sp,
-                                color = Color(0xFF8ecede)
-                            )
-                            Text(
-                                it.following.toString(),
-                                fontFamily = FontFamily.Default,
-                                fontWeight = FontWeight.Normal,
-                                fontSize = 16.sp,
-                                lineHeight = 24.sp,
-                                letterSpacing = 0.5.sp,
-                                color = Color(0xFF8ecede)
-                            )
+
+                        }*/
                         }
 
-                        Row(
-                            modifier = Modifier.padding(horizontal = 18.dp),
-                            horizontalArrangement = Arrangement.spacedBy(18.dp) // Aligns children to start and end
-                        ) {
-                            Text(
-                                "Created",
-                                modifier = Modifier,
-                                fontSize = 16.sp,
-                                lineHeight = 24.sp,
-                                letterSpacing = 0.5.sp,
-                                color = Color(0xFF8ecede)
-                            )
-                            Text(
-                                it.created_at.substring(0,10),
-                                fontFamily = FontFamily.Default,
-                                fontWeight = FontWeight.Normal,
-                                fontSize = 16.sp,
-                                lineHeight = 24.sp,
-                                letterSpacing = 0.5.sp,
-                                color = Color(0xFF8ecede)
-                            )
-                        }
-
-                        Row(
-                            modifier = Modifier.padding(horizontal = 18.dp),
-                            horizontalArrangement = Arrangement.spacedBy(18.dp) // Aligns children to start and end
-                        ) {
-                            Text(
-                                "Updated",
-                                modifier = Modifier,
-                                fontSize = 16.sp,
-                                lineHeight = 24.sp,
-                                letterSpacing = 0.5.sp,
-                                color = Color(0xFF8ecede)
-                            )
-                            Text(
-                                it.updated_at.substring(0,10),
-                                fontFamily = FontFamily.Default,
-                                fontWeight = FontWeight.Normal,
-                                fontSize = 16.sp,
-                                lineHeight = 24.sp,
-                                letterSpacing = 0.5.sp,
-                                color = Color(0xFF8ecede)
-                            )
-                        }
                     }
 
 

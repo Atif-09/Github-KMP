@@ -30,6 +30,10 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import cafe.adriel.voyager.core.screen.Screen
+import cafe.adriel.voyager.core.screen.uniqueScreenKey
+import cafe.adriel.voyager.navigator.LocalNavigator
+import cafe.adriel.voyager.navigator.currentOrThrow
 import com.seiko.imageloader.rememberImagePainter
 import model.UsersDataClass
 import model.listOfPredefinedUsers
@@ -43,6 +47,8 @@ fun SmallDevicesHomeScreenUI() {
 
      }*/
 
+    val navigator = LocalNavigator.currentOrThrow
+
     val list = urlList.ifEmpty { listOfPredefinedUsers }
 
     LazyColumn {
@@ -53,7 +59,9 @@ fun SmallDevicesHomeScreenUI() {
                 colors = CardDefaults.cardColors(
                     containerColor = Color(0xFF0d2f3a)
                 ),
-                onClick = {}
+                onClick = {
+                    navigator.push(SmallHomeToDetailScreenNav(user.login))
+                }
             ) {
                 Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(vertical = 12.dp)) {
                     Card(
@@ -106,5 +114,14 @@ fun SmallDevicesHomeScreenUI() {
 
             }
         }
+    }
+
+}
+
+class SmallHomeToDetailScreenNav(private val userName: String) : Screen {
+
+    @Composable
+    override fun Content() {
+        SmallDeviceShowDetailsUI(userName)
     }
 }
