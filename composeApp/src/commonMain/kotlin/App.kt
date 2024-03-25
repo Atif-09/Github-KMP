@@ -13,6 +13,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import api.ApiClass
+import cafe.adriel.voyager.core.screen.Screen
+import cafe.adriel.voyager.navigator.Navigator
+import cafe.adriel.voyager.transitions.SlideTransition
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
@@ -43,8 +46,10 @@ fun App() {
             if (getPlatform().name == "Desktop") {
                 LargeMainScreenUI()
             } else {
-
-                MainScreenUI()
+                Navigator(SmallDevicesMainScreen()){
+                    SlideTransition(it)
+                }
+                //MainScreenUI()
             }
         }
         /* Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
@@ -59,5 +64,13 @@ fun App() {
                  }
              }
          }*/
+    }
+}
+
+class SmallDevicesMainScreen() : Screen {
+
+    @Composable
+    override fun Content() {
+        MainScreenUI()
     }
 }

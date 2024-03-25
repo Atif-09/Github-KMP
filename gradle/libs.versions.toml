@@ -22,6 +22,8 @@ core-splashscreen = "1.0.1"
 tv-foundation = "1.0.0-alpha10"
 tv-material = "1.0.0-alpha10"
 lifecycle-runtime-ktx = "2.7.0"
+voyagerNavigator = "1.0.0"
+
 
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
@@ -49,6 +51,9 @@ tv-material = { group = "androidx.tv", name = "tv-material", version.ref = "tv-m
 lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycle-runtime-ktx" }
 ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
 material3 = { group = "androidx.compose.material3", name = "material3" }
+voyager-navigator = { module = "cafe.adriel.voyager:voyager-navigator", version.ref = "voyagerNavigator" }
+voyager-transitions = { module = "cafe.adriel.voyager:voyager-transitions", version.ref = "voyagerNavigator" }
+
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

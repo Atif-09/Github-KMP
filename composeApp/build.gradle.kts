@@ -50,6 +50,8 @@ kotlin {
             implementation("io.ktor:ktor-client-content-negotiation:2.3.7")
             implementation("io.ktor:ktor-serialization-kotlinx-json:2.3.7")
             api("io.github.qdsfdhvh:image-loader:1.7.6")
+            implementation(libs.voyager.navigator)
+            implementation(libs.voyager.transitions)
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
@@ -69,9 +71,7 @@ android {
 
     defaultConfig {
 
-        /*applicationId = "com.github.users"
-        versionCode = 1
-        versionName = "1.0"*/
+
 
         minSdk = libs.versions.android.minSdk.get().toInt()
         targetSdk = libs.versions.android.targetSdk.get().toInt()
