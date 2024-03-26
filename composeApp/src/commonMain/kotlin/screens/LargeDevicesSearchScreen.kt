@@ -10,8 +10,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.KeyboardActions
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Search
@@ -33,18 +31,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.key.Key
-import androidx.compose.ui.input.key.KeyEvent
 import androidx.compose.ui.input.key.key
 import androidx.compose.ui.input.key.onKeyEvent
-import androidx.compose.ui.input.key.onPreviewKeyEvent
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.semantics.isTraversalGroup
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.input.ImeAction
-import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import api.ApiClass
@@ -71,7 +64,6 @@ fun LargeDeviceSearchScreenUI() {
 
                             }
                         }
-
                     }
                     true
                 },
@@ -138,7 +130,7 @@ fun LargeDeviceSearchScreenUI() {
             ) {
 
                 Card(
-                    modifier = Modifier.fillMaxSize().padding(top = 81.dp),
+                    modifier = Modifier.fillMaxSize().padding(top = 108.dp),
                     shape = RoundedCornerShape(18.dp),
                     colors = CardDefaults.cardColors(
                         containerColor = Color(0xFF0d2f3a)
@@ -149,7 +141,7 @@ fun LargeDeviceSearchScreenUI() {
                         horizontalAlignment = Alignment.CenterHorizontally
                         ) {
                         Row(
-                            modifier = Modifier.padding(top = 72.dp),
+                            modifier = Modifier.padding(top = 90.dp),
 
                         ) {
                             Column(
@@ -294,43 +286,6 @@ fun LargeDeviceSearchScreenUI() {
                                     color = Color(0xFF8ecede)
                                 )
                             }
-
-                            /*                        Row(
-                            modifier = Modifier.padding(horizontal = 18.dp),
-                            horizontalArrangement = Arrangement.spacedBy(18.dp) // Aligns children to start and end
-                        ) {
-
-
-                        }
-                        Row(
-                            modifier = Modifier.padding(horizontal = 18.dp),
-                            horizontalArrangement = Arrangement.spacedBy(18.dp) // Aligns children to start and end
-                        ) {
-
-
-                        }
-                        Row(
-                            modifier = Modifier.padding(horizontal = 18.dp),
-                            horizontalArrangement = Arrangement.spacedBy(18.dp) // Aligns children to start and end
-                        ) {
-
-
-                        }
-
-                        Row(
-                            modifier = Modifier.padding(horizontal = 18.dp),
-                            horizontalArrangement = Arrangement.spacedBy(18.dp) // Aligns children to start and end
-                        ) {
-
-
-                        }
-
-                        Row(
-                            modifier = Modifier.padding(horizontal = 18.dp),
-                            horizontalArrangement = Arrangement.spacedBy(18.dp) // Aligns children to start and end
-                        ) {
-
-                        }*/
                         }
 
                     }

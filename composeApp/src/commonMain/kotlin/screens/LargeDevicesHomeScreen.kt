@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.grid.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
@@ -38,9 +37,9 @@ fun LargeDevicesHomeScreenUI(){
     var urlList by remember { mutableStateOf<List<UsersDataClass>>(emptyList()) }
 
     val scope = rememberCoroutineScope()
-       /* scope.launch {
+        scope.launch {
             urlList = ApiClass().githubUsers()
-        }*/
+        }
 
     val list = urlList.ifEmpty { listOfPredefinedUsers }
         LazyVerticalGrid(columns = GridCells.Adaptive(300.dp)) {

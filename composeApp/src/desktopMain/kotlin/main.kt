@@ -10,6 +10,7 @@ import api.ApiClass
 import kotlinx.coroutines.launch
 
 fun main() = application {
+
     Window(
         onCloseRequest = ::exitApplication,
         title = "Github Users",
@@ -22,7 +23,7 @@ fun main() = application {
             }
             true
 
-        }) {
+        }, focusable = true) {
 
         App()
     }
