@@ -38,7 +38,7 @@ data class SearchUserDataClass(
     @SerialName("id")
     val id: Int,
     @SerialName("location")
-    val location: String,
+    val location: String? = null,
     @SerialName("login")
     val login: String,
     @SerialName("name")
@@ -62,7 +62,7 @@ data class SearchUserDataClass(
     @SerialName("subscriptions_url")
     val subscriptions_url: String,
     @SerialName("twitter_username")
-    val twitter_username: String,
+    val twitter_username: String? = null,
     @SerialName("type")
     val type: String,
     @SerialName("updated_at")
