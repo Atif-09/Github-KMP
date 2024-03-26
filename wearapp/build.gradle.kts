@@ -66,4 +66,5 @@ dependencies {
     debugImplementation(libs.ui.test.manifest)
     implementation("androidx.compose.material:material-icons-extended:1.6.3")
     implementation("io.coil-kt:coil-compose:2.6.0")
+    implementation ("androidx.wear.compose:compose-navigation:1.3.0")
 }

@@ -63,11 +63,11 @@ fun MainScreenUI() {
     var trendingReposSelected by remember { mutableStateOf(false) }
     var trendingUsersSelected by remember { mutableStateOf(false) }
 
-    val scope = rememberCoroutineScope()
+/*    val scope = rememberCoroutineScope()
     scope.launch {
         val user = ApiClass().getUser("seabdulbasit")
         println("Single User $user")
-    }
+    }*/
     Box(modifier = Modifier.fillMaxSize().background(Color(0xFF001f25))) {
         if (homeSelected) {
             SmallDevicesHomeScreenUI()
