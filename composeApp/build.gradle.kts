@@ -56,7 +56,9 @@ kotlin {
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
             implementation("io.ktor:ktor-client-java:2.3.7")
-
+        }
+        iosMain.dependencies {
+            implementation("io.ktor:ktor-client-darwin:2.3.7")
         }
     }
 }
